@@ -3,7 +3,6 @@ package service
 import (
 	"audio-storage/internal/model"
 	"encoding/json"
-	"fmt"
 	"github.com/pkg/errors"
 	"io"
 	"net/http"
@@ -27,7 +26,6 @@ func (a *audioService) GetAudioByID(id string) ([]byte, error) {
 	}
 	for _, f := range files {
 		if f.Name() == id+".mp3" {
-			fmt.Println("хуй")
 			dataFile, err := os.ReadFile("assets/" + id + ".mp3")
 			if err != nil {
 				return nil, errors.Wrap(err, "AS/GetAudioByID: fail to read mp3")
