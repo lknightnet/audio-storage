@@ -1,0 +1,9 @@
+app:
+  name: "audio-storage"
+http:
+  port: 8004
+  read_timeout: 1m
+  write_timeout: 1m
+  shutdown_timeout: 5s
+api:
+  url: "http://172.17.0.1:8003/get/"
