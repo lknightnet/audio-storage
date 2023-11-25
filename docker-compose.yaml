@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "8004:8004"
+volumes:
+  data:
