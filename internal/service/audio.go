@@ -20,19 +20,6 @@ func (a *audioService) GetAudioByID(id string) ([]byte, error) {
 		Timeout: 60 * time.Second,
 	}
 
-	files, err := os.ReadDir("assets")
-	if err != nil {
-		return nil, errors.Wrap(err, "AS/GetAudioByID: fail to find file .mp3")
-	}
-	for _, f := range files {
-		if f.Name() == id+".mp3" {
-			dataFile, err := os.ReadFile("assets/" + id + ".mp3")
-			if err != nil {
-				return nil, errors.Wrap(err, "AS/GetAudioByID: fail to read mp3")
-			}
-			return dataFile, nil
-		}
-	}
 	req, err := client.Get(a.apiirl + id)
 	if err != nil {
 		return nil, errors.Wrap(err, "AS/GetAudioByID: fail to request for API")
@@ -48,7 +35,6 @@ func (a *audioService) GetAudioByID(id string) ([]byte, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "AS/GetAudioByID: fail to read request body")
 	}
-
 	req, err = client.Get(bell.ContactAudio)
 	if err != nil {
 		return nil, errors.Wrap(err, "AS/GetAudioByID: fail to request for contactaudio")
@@ -56,7 +42,7 @@ func (a *audioService) GetAudioByID(id string) ([]byte, error) {
 
 	idi := strconv.Itoa(bell.ID)
 
-	newFile, err := os.Create("assets/" + idi + ".mp3")
+	newFile, err := os.Create(idi + ".mp3")
 	if err != nil {
 		return nil, errors.Wrap(err, "AS/GetAudioByID: fail to create file")
 	}
@@ -67,7 +53,7 @@ func (a *audioService) GetAudioByID(id string) ([]byte, error) {
 		return nil, errors.Wrap(err, "AS/GetAudioByID: fail to request for copy")
 	}
 
-	dataFile, err := os.ReadFile("assets/" + idi + ".mp3")
+	dataFile, err := os.ReadFile(idi + ".mp3")
 	if err != nil {
 		return nil, errors.Wrap(err, "AS/GetAudioByID: fail to read mp3")
 	}
