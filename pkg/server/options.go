@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+//
+
 type Options func(s *Server)
 
 func Port(addr string) Options {
